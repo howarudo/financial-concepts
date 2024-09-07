@@ -14,10 +14,19 @@ sh scripts/build.sh
 ```zsh
 sh scripts/run.sh
 ```
-This will create a jupyter lab server accessible on `localhost:8877`
 
 3. Access docker container terminal
 
 ```zsh
 docker exec -it market-sentiment-outlook-cnt bash
 ```
+
+
+### Setting up Jupyter Lab Server
+
+```bash
+poetry run jupyter lab --allow-root --ip=0.0.0.0 --no-browser --port=8877 --NotebookApp.token='' --NotebookApp.password=''
+```
+This will start a jupyter lab server at `localhost:8877`
+
+###

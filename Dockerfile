@@ -17,5 +17,4 @@ COPY . .
 RUN poetry install --no-dev --no-root --no-interaction --no-ansi
 
 EXPOSE 8877
-
-CMD ["poetry", "run", "jupyter", "lab", "--allow-root", "--ip=0.0.0.0", "--no-browser", "--port=8877", "--NotebookApp.token=''", "--NotebookApp.password=''"]
+EXPOSE 8878
