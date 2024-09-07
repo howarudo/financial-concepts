@@ -10,6 +10,8 @@ packages = [{include = "market_sentiment_outlook"}]
 python = "^3.10"
 yfinance = "^0.2.43"
 jupyter = "^1.1.1"
+seaborn = "^0.13.2"
+jupyterlab = "^4.2.5"
 
 
 [build-system]
