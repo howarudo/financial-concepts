@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t market-sentiment-outlook .
+docker build -t market-trade-analysis .

@@ -18,7 +18,7 @@ sh scripts/run.sh
 3. Access docker container terminal
 
 ```zsh
-docker exec -it market-sentiment-outlook-cnt bash
+docker exec -it market-trade-analysis-cnt bash
 ```
 
 
