@@ -7,9 +7,12 @@ st.set_page_config(
 
 st.write("# Finance Data Analysis")
 
-st.sidebar.success("Select a demo above.")
+st.sidebar.success("Select a strategy from above.")
 
 st.markdown(
     """
+    # Finance Data Analysis
+    This app is for analysing different approaches to trading in the stock market.
+    First one is the Golden Cross and Death Cross strategy.
 """
 )
