@@ -1,4 +1,4 @@
-# Market Sentiment Outlook
+# Market Trade Analysis
 
 ## Setup
 Docker is needed for setup. [Docker](https://docs.docker.com/get-started/get-docker/) can be downloaded here. Environment inside docker is setup using poetry. This ensures that any machine with docker will be compatible.
