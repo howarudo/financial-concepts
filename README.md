@@ -29,4 +29,8 @@ poetry run jupyter lab --allow-root --ip=0.0.0.0 --no-browser --port=8877 --Note
 ```
 This will start a jupyter lab server at `localhost:8877`
 
-###
+### Running Streamlit Demo
+
+```bash
+poetry run streamlit run src/streamlit/streamlit.py
+```

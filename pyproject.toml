@@ -4,7 +4,9 @@ version = "0.1.0"
 description = ""
 authors = ["Howard Tangkulung <howardtangkulung@gmail.com>"]
 readme = "README.md"
-packages = [{include = "market_sentiment_outlook"}]
+packages = [
+    {include = "market_sentiment_outlook"}
+]
 
 [tool.poetry.dependencies]
 python = "^3.10"
