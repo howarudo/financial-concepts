@@ -114,6 +114,10 @@ def plot_mva_results(spy_ticker, golden_death_cross, portfolio_values):
                       xaxis_title="Date", yaxis_title="Price", legend_title="Legend",
                       width=1000, height=600)
 
+    # fix the x-axis range and y-axis range
+    fig.layout.xaxis.fixedrange = True
+    fig.layout.yaxis.fixedrange = True
+
     st.plotly_chart(fig, use_container_width=True)
 
 def plot_trading_simulation_results(spy_ticker, golden_death_cross, portfolio_values):
@@ -126,7 +130,7 @@ def plot_trading_simulation_results(spy_ticker, golden_death_cross, portfolio_va
     # Add SPY price trace
     fig.add_trace(go.Scatter(x=dates, y=benchmark_values, mode='lines', name="Benchmark"))
     fig.add_trace(go.Scatter(x=dates, y=commision_values, mode='lines', name="Trader Commission"))
-    fig.add_trace(go.Scatter(x=dates, y=death_cross_values, mode='lines', name="Trader Death Cross"))
+    fig.add_trace(go.Scatter(x=dates, y=death_cross_values, mode='lines', name="Trader G&D Cross"))
     for i, signal in enumerate(golden_death_cross.signal):
         if signal == "sell":
             fig.add_vline(x=dates[i], line=dict(color='red', width=2, dash='dash'))
@@ -143,13 +147,23 @@ def plot_trading_simulation_results(spy_ticker, golden_death_cross, portfolio_va
         xaxis=dict(type='date')  # Ensure x-axis is treated as dates
     )
 
+    # fix the x-axis range and y-axis range
+    fig.layout.xaxis.fixedrange = True
+    fig.layout.yaxis.fixedrange = True
+
     st.plotly_chart(fig, use_container_width=True)
 
 
 
 # Main Streamlit application
 def main():
-    st.title("Golden Cross and Death Cross Strategy Simulation")
+
+    st.set_page_config(
+    page_title="Golden Cross & Death Cross",
+    page_icon="📈",
+    )
+
+    st.title("Golden Cross & Death Cross")
 
     # Fetch data
     ticker_df = fetch_ticker_data(TICKER_SYMBOL, START_DATE, END_DATE)
@@ -158,13 +172,22 @@ def main():
         # Run simulation
         portfolio_values, spy_ticker, golden_death_cross = run_trading_simulation(ticker_df)
 
-        st.write("## Moving Average Plots")
+        # Read overview from texts/golden_cross_death_cross/overview.md
+        overview = open("src/pages/texts/golden_cross_death_cross/overview.md", "r").read()
+        st.markdown(overview)
+
+        mva = open("src/pages/texts/golden_cross_death_cross/mva.md", "r").read()
+        st.markdown(mva)
         # Plot results
         plot_mva_results(spy_ticker, golden_death_cross, portfolio_values)
 
-        st.write("## Trading Simulation Results")
+        backtest_conditions = open("src/pages/texts/golden_cross_death_cross/backtest_conditions.md", "r").read()
+        st.markdown(backtest_conditions)
         # Plot trading simulation results
         plot_trading_simulation_results(spy_ticker, golden_death_cross, portfolio_values)
+
+        analysis = open("src/pages/texts/golden_cross_death_cross/analysis.md", "r").read()
+        st.markdown(analysis)
 
 if __name__ == "__main__":
     main()

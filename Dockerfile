@@ -16,5 +16,4 @@ COPY . .
 
 RUN poetry install --no-dev --no-root --no-interaction --no-ansi
 
-EXPOSE 8877
-EXPOSE 8878
+EXPOSE 8877-8878
