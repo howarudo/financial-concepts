@@ -32,5 +32,5 @@ This will start a jupyter lab server at `localhost:8877`
 ### Running Streamlit Demo
 
 ```bash
-poetry run streamlit run src/streamlit/streamlit.py
+poetry run streamlit run --server.port=8878 src/Introduction.py
 ```
