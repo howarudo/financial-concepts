@@ -10,6 +10,7 @@ st.sidebar.success("Select a concept from above.")
 st.markdown("""
             # Financial Concepts
             - By Howard T.
+
             A collection of market concepts, trading strategies, and investment principles visualized in Python.
             """)
 
