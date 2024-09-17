@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t market-trade-analysis .
+docker build -t financial-concepts .

@@ -1,4 +1,4 @@
-# Market Trade Analysis
+# Financial Concepts
 
 ## Setup
 Docker is needed for setup. [Docker](https://docs.docker.com/get-started/get-docker/) can be downloaded here. Environment inside docker is setup using poetry. This ensures that any machine with docker will be compatible.
@@ -18,7 +18,7 @@ sh scripts/run.sh
 3. Access docker container terminal
 
 ```zsh
-docker exec -it market-trade-analysis-cnt bash
+docker exec -it financial-concepts-cnt bash
 ```
 
 
