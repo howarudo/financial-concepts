@@ -1,5 +1,3 @@
-## Overview
+## What is the Yield Curve?
 
-**Golden Cross** and **Death Cross** compares long-term trends and short-term trends to indicate a bull or bear market. A **Golden Cross** occurs when a short-term moving average crosses over a long-term moving average, indicating a bull market. On the other hand, a **Death Cross** is the exact oppposite of a **Golden Cross**, indicating a bear market.
-
-In the demo below, we show cases where the **Golden Cross and Death Cross** might be a good indicator and cases where it fails.
+The Yield Curve depicts the relationship between interest rates (yields) of fixed-income debt instruments and its maturities. In this case, it specifically points to the U.S. Treasury debt securities, which are regarded as risk-free. It provides critical insights, not only reflecting the current federal funds target rate but also revealing market expectations for future interest rate movements and economic conditions. Hence, it is considered as one of the most important indicators in finance.
