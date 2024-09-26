@@ -84,8 +84,7 @@ def plot_3d_yield_curve(df):
             ),
             zaxis_title='Yield'
         ),
-        width=800,
-        height=800
+        height=700
     )
     st.plotly_chart(fig, use_container_width=True)
 
@@ -108,7 +107,7 @@ def plot_normal_yield_curve(df):
         title=f'Normal Yield Curve on {NORMAL_YIELD_DATE}',
         xaxis_title='Maturity',
         yaxis_title='Yield',
-        width=600, height=400,
+        height=300,
         showlegend=False,
         xaxis_fixedrange=True,
         yaxis_fixedrange=True
@@ -133,7 +132,7 @@ def plot_inverted_yield_curve(df):
         title=f'Inverted Yield Curve on {INVERTED_YIELD_DATE}',
         xaxis_title='Maturity',
         yaxis_title='Yield',
-        width=600, height=400,
+        height=300,
         showlegend=False,
         colorway=["#FFC0CB", "#FF2511",],
         xaxis_fixedrange=True,
@@ -154,7 +153,7 @@ def plot_yield_curve_by_maturity(df):
         title='Yield Curve',
         xaxis_title='Date',
         yaxis_title='Yield',
-        width=800, height=400,
+        height=300,
         legend_title='Maturity',
         colorway=["#FFFFED", "#FFD000", "#FFA500", "#FF2600"],
         xaxis_fixedrange=True,
@@ -175,12 +174,12 @@ def plot_yield_and_spy(df):
     spread = df[LONG_TERM_MATURITY] - df[SHORT_TERM_MATURITY]
     fig = make_subplots(specs=[[{"secondary_y": True}]])
     fig.add_trace(go.Scatter(x=df.index, y=spread, mode='lines', name='Spread'), secondary_y=False)
-    fig.add_trace(go.Scatter(x=interest_rate.index, y=moving_avg, mode='lines', name='SPY 30 day MVA'), secondary_y=True)
+    fig.add_trace(go.Scatter(x=interest_rate.index, y=moving_avg, mode='lines', name='SPY 30d'), secondary_y=True)
     fig.update_layout(
-        title='Yield Spread and SPY 30-Day MVA',
+        title='Yield Spread and SPY 30-Day MVA Interest Rate',
         xaxis_title='Date',
         yaxis_title='Yield Spread',
-        width=800, height=500,
+        height=300,
         colorway=["#FF2511", "#E2DED0"],
         xaxis_fixedrange=True,
         yaxis1_fixedrange=True,
