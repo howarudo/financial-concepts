@@ -9,8 +9,6 @@ from utils.ticker import StockTicker
 from utils.trader import Trader
 from utils.strategy.golden_death_cross import GoldenAndDeathCrossStrategy
 
-from streamlit_js_eval import streamlit_js_eval
-
 # Setup logging
 logging.basicConfig(level=logging.INFO)
 
@@ -24,8 +22,6 @@ END_DATE = "2017-01-01"
 SHORT_MVA = 30
 LONG_MVA = 200
 COMMISSION_RATE = 0.05
-
-CONTAINER_WIDTH = 0
 
 # Function to fetch ticker data
 @st.cache_data
@@ -82,16 +78,16 @@ def plot_mva_results(spy_ticker, golden_death_cross, portfolio_values):
     # Add SPY price trace
     fig.add_trace(go.Scatter(x=spy_ticker.get_price_history(TRADING_DAYS).index,
                              y=spy_ticker.get_price_history(TRADING_DAYS).values,
-                             mode='lines', name='SPY'))
+                             mode='lines', name='SPY Price'))
 
     # Add MVA traces
     fig.add_trace(go.Scatter(x=spy_ticker.get_price_history(TRADING_DAYS).index,
                              y=golden_death_cross.slow_avg,
-                             mode='lines', name=f'{SHORT_MVA}d MVA'))
+                             mode='lines', name=f'{SHORT_MVA}-Day MVA'))
 
     fig.add_trace(go.Scatter(x=spy_ticker.get_price_history(TRADING_DAYS).index,
                              y=golden_death_cross.long_avg,
-                             mode='lines', name=f'{LONG_MVA}d MVA'))
+                             mode='lines', name=f'{LONG_MVA}-Day MVA'))
 
     # Add Buy/Sell signal markers
     buy_signals, sell_signals = [], []
@@ -109,24 +105,20 @@ def plot_mva_results(spy_ticker, golden_death_cross, portfolio_values):
 
     # Add buy/sell markers
     fig.add_trace(go.Scatter(x=buy_signals, y=[spy_ticker.get_price_history(TRADING_DAYS).max()]*len(buy_signals),
-                             mode='markers', name='Buy', marker=dict(size=10, color='green', symbol='triangle-up')))
+                             mode='markers', name='Buy Signal', marker=dict(size=10, color='green', symbol='triangle-up')))
     fig.add_trace(go.Scatter(x=sell_signals, y=[spy_ticker.get_price_history(TRADING_DAYS).max()]*len(sell_signals),
-                             mode='markers', name='Sell', marker=dict(size=10, color='red', symbol='triangle-down')))
+                             mode='markers', name='Sell Signal', marker=dict(size=10, color='red', symbol='triangle-down')))
 
     # Update layout
-    fig.update_layout(
-        title="SPY Price with 30-Day and 200-Day MVA",
-        xaxis_title="Date",
-        yaxis_title="Price",
-        colorway=["#bcbcbc", "#f1c232", "#b45f06"],
-        legend_title="Legend",
-        xaxis_fixedrange=True,
-        yaxis_fixedrange=True,
-        width=CONTAINER_WIDTH, height=round(CONTAINER_WIDTH/2.8)
-        )
+    fig.update_layout(title="SPY Price with 30-Day and 200-Day MVA",
+                      xaxis_title="Date", yaxis_title="Price", legend_title="Legend",
+                      width=1000, height=600)
 
-    st.plotly_chart(fig)
-    return
+    # fix the x-axis range and y-axis range
+    fig.layout.xaxis.fixedrange = True
+    fig.layout.yaxis.fixedrange = True
+
+    st.plotly_chart(fig, use_container_width=True)
 
 def plot_trading_simulation_results(spy_ticker, golden_death_cross, portfolio_values):
     benchmark_values = np.array(portfolio_values['benchmark'])
@@ -137,8 +129,8 @@ def plot_trading_simulation_results(spy_ticker, golden_death_cross, portfolio_va
     fig = go.Figure()
     # Add SPY price trace
     fig.add_trace(go.Scatter(x=dates, y=benchmark_values, mode='lines', name="Benchmark"))
-    fig.add_trace(go.Scatter(x=dates, y=commision_values, mode='lines', name="T. Commission"))
-    fig.add_trace(go.Scatter(x=dates, y=death_cross_values, mode='lines', name="T. G&D Cross"))
+    fig.add_trace(go.Scatter(x=dates, y=commision_values, mode='lines', name="Trader Commission"))
+    fig.add_trace(go.Scatter(x=dates, y=death_cross_values, mode='lines', name="Trader G&D Cross"))
     for i, signal in enumerate(golden_death_cross.signal):
         if signal == "sell":
             fig.add_vline(x=dates[i], line=dict(color='red', width=2, dash='dash'))
@@ -151,7 +143,7 @@ def plot_trading_simulation_results(spy_ticker, golden_death_cross, portfolio_va
         xaxis_title="Date",
         yaxis_title="Portfolio Value ($)",
         legend_title="Portfolio",
-        width=CONTAINER_WIDTH, height=round(CONTAINER_WIDTH/2.8),
+        width=1000, height=600,
         xaxis=dict(type='date')  # Ensure x-axis is treated as dates
     )
 
@@ -159,7 +151,7 @@ def plot_trading_simulation_results(spy_ticker, golden_death_cross, portfolio_va
     fig.layout.xaxis.fixedrange = True
     fig.layout.yaxis.fixedrange = True
 
-    st.plotly_chart(fig)
+    st.plotly_chart(fig, use_container_width=True)
 
 
 
@@ -170,8 +162,6 @@ def main():
     page_title="Golden Cross & Death Cross",
     page_icon="📈",
     )
-    global CONTAINER_WIDTH
-    CONTAINER_WIDTH = streamlit_js_eval(js_expressions='screen.width', key = 'SCR1')
 
     st.title("Golden Cross & Death Cross")
 
