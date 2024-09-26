@@ -5,6 +5,7 @@ import plotly.graph_objects as go
 import yfinance as yahooFinance
 import streamlit as st
 from plotly.subplots import make_subplots
+from streamlit_js_eval import streamlit_js_eval
 
 DATA_PATH = 'data/'
 TREASURY_YIELD_CURVE = 'treasury_yield_curve.csv'
@@ -28,6 +29,7 @@ LONG_TERM_MATURITY = "10 Yr"
 
 FINANCIAL_CRISIS_EARLY_2000 = ["2000-03-01", "2003-06-01"]
 FINANCIAL_CRISIS_2007_2008 = ["2006-03-01", "2009-12-01"]
+
 
 def plot_3d_yield_curve(df):
     # fill as 3d array
@@ -84,11 +86,10 @@ def plot_3d_yield_curve(df):
             ),
             zaxis_title='Yield'
         ),
-        width=800,
-        height=800
+        width=CONTAINER_WIDTH, height=round(CONTAINER_WIDTH/1.8)
     )
-    st.plotly_chart(fig, use_container_width=True)
 
+    st.plotly_chart(fig)
     return
 
 def plot_normal_yield_curve(df):
@@ -108,12 +109,13 @@ def plot_normal_yield_curve(df):
         title=f'Normal Yield Curve on {NORMAL_YIELD_DATE}',
         xaxis_title='Maturity',
         yaxis_title='Yield',
-        width=600, height=400,
+        width=CONTAINER_WIDTH,
+        height=round(CONTAINER_WIDTH/3),
         showlegend=False,
         xaxis_fixedrange=True,
         yaxis_fixedrange=True
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig)
 
     return
 
@@ -133,13 +135,13 @@ def plot_inverted_yield_curve(df):
         title=f'Inverted Yield Curve on {INVERTED_YIELD_DATE}',
         xaxis_title='Maturity',
         yaxis_title='Yield',
-        width=600, height=400,
+        width=CONTAINER_WIDTH, height=round(CONTAINER_WIDTH/3),
         showlegend=False,
         colorway=["#FFC0CB", "#FF2511",],
         xaxis_fixedrange=True,
         yaxis_fixedrange=True
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig)
 
     return
 
@@ -149,21 +151,17 @@ def plot_yield_curve_by_maturity(df):
     fig.add_trace(go.Scatter(x=df.index, y=df['1 Yr'], mode='lines', name='1 Yr'))
     fig.add_trace(go.Scatter(x=df.index, y=df['5 Yr'], mode='lines', name='5 Yr'))
     fig.add_trace(go.Scatter(x=df.index, y=df['10 Yr'], mode='lines', name='10 Yr'))
-
     fig.update_layout(
-        title='Yield Curve',
+        title='Yield Curve by Maturity',
         xaxis_title='Date',
         yaxis_title='Yield',
-        width=800, height=400,
         legend_title='Maturity',
         colorway=["#FFFFED", "#FFD000", "#FFA500", "#FF2600"],
         xaxis_fixedrange=True,
-        yaxis_fixedrange=True
+        yaxis_fixedrange=True,
+        width=CONTAINER_WIDTH, height=round(CONTAINER_WIDTH/3.5)
         )
-
-
-
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig)
 
     return
 
@@ -175,16 +173,16 @@ def plot_yield_and_spy(df):
     spread = df[LONG_TERM_MATURITY] - df[SHORT_TERM_MATURITY]
     fig = make_subplots(specs=[[{"secondary_y": True}]])
     fig.add_trace(go.Scatter(x=df.index, y=spread, mode='lines', name='Spread'), secondary_y=False)
-    fig.add_trace(go.Scatter(x=interest_rate.index, y=moving_avg, mode='lines', name='SPY 30 day MVA'), secondary_y=True)
+    fig.add_trace(go.Scatter(x=interest_rate.index, y=moving_avg, mode='lines', name='SPY'), secondary_y=True)
     fig.update_layout(
-        title='Yield Spread and SPY 30-Day MVA',
+        title='Yield Spread and SPY 30-Day MVA Interest Rate',
         xaxis_title='Date',
         yaxis_title='Yield Spread',
-        width=800, height=500,
         colorway=["#FF2511", "#E2DED0"],
         xaxis_fixedrange=True,
         yaxis1_fixedrange=True,
-        yaxis2_fixedrange=True
+        yaxis2_fixedrange=True,
+        width=CONTAINER_WIDTH, height=round(CONTAINER_WIDTH/3.5)
     )
 
     # add vrect of financial crisis
@@ -197,7 +195,7 @@ def plot_yield_and_spy(df):
         fillcolor="red", opacity=0.25, layer="below", line_width=0
     )
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig)
 
     return
 
@@ -213,7 +211,8 @@ def main():
         page_title="The Yield Curve",
         page_icon="📈",
     )
-
+    global CONTAINER_WIDTH
+    CONTAINER_WIDTH = streamlit_js_eval(js_expressions='screen.width', key = 'SCR')
     df = read_df()
 
     st.title("The Yield Curve")
