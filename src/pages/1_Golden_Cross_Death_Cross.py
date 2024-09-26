@@ -78,16 +78,16 @@ def plot_mva_results(spy_ticker, golden_death_cross, portfolio_values):
     # Add SPY price trace
     fig.add_trace(go.Scatter(x=spy_ticker.get_price_history(TRADING_DAYS).index,
                              y=spy_ticker.get_price_history(TRADING_DAYS).values,
-                             mode='lines', name='SPY Price'))
+                             mode='lines', name='SPY'))
 
     # Add MVA traces
     fig.add_trace(go.Scatter(x=spy_ticker.get_price_history(TRADING_DAYS).index,
                              y=golden_death_cross.slow_avg,
-                             mode='lines', name=f'{SHORT_MVA}-Day MVA'))
+                             mode='lines', name=f'{SHORT_MVA}d'))
 
     fig.add_trace(go.Scatter(x=spy_ticker.get_price_history(TRADING_DAYS).index,
                              y=golden_death_cross.long_avg,
-                             mode='lines', name=f'{LONG_MVA}-Day MVA'))
+                             mode='lines', name=f'{LONG_MVA}d'))
 
     # Add Buy/Sell signal markers
     buy_signals, sell_signals = [], []
@@ -105,14 +105,17 @@ def plot_mva_results(spy_ticker, golden_death_cross, portfolio_values):
 
     # Add buy/sell markers
     fig.add_trace(go.Scatter(x=buy_signals, y=[spy_ticker.get_price_history(TRADING_DAYS).max()]*len(buy_signals),
-                             mode='markers', name='Buy Signal', marker=dict(size=10, color='green', symbol='triangle-up')))
+                             mode='markers', name='Buy', marker=dict(size=10, color='green', symbol='triangle-up')))
     fig.add_trace(go.Scatter(x=sell_signals, y=[spy_ticker.get_price_history(TRADING_DAYS).max()]*len(sell_signals),
-                             mode='markers', name='Sell Signal', marker=dict(size=10, color='red', symbol='triangle-down')))
+                             mode='markers', name='Sell', marker=dict(size=10, color='red', symbol='triangle-down')))
 
     # Update layout
-    fig.update_layout(title="SPY Price with 30-Day and 200-Day MVA",
-                      xaxis_title="Date", yaxis_title="Price", legend_title="Legend",
-                      width=1000, height=600)
+    fig.update_layout(
+        title="SPY Price with 30-Day and 200-Day MVA",
+        xaxis_title="Date", yaxis_title="Price",
+        legend_title="Legend",
+        height=400
+        )
 
     # fix the x-axis range and y-axis range
     fig.layout.xaxis.fixedrange = True
@@ -128,9 +131,9 @@ def plot_trading_simulation_results(spy_ticker, golden_death_cross, portfolio_va
     dates = spy_ticker.get_price_history(TRADING_DAYS).index
     fig = go.Figure()
     # Add SPY price trace
-    fig.add_trace(go.Scatter(x=dates, y=benchmark_values, mode='lines', name="Benchmark"))
-    fig.add_trace(go.Scatter(x=dates, y=commision_values, mode='lines', name="Trader Commission"))
-    fig.add_trace(go.Scatter(x=dates, y=death_cross_values, mode='lines', name="Trader G&D Cross"))
+    fig.add_trace(go.Scatter(x=dates, y=benchmark_values, mode='lines', name="BMark"))
+    fig.add_trace(go.Scatter(x=dates, y=commision_values, mode='lines', name="T. Com."))
+    fig.add_trace(go.Scatter(x=dates, y=death_cross_values, mode='lines', name="T. G&D"))
     for i, signal in enumerate(golden_death_cross.signal):
         if signal == "sell":
             fig.add_vline(x=dates[i], line=dict(color='red', width=2, dash='dash'))
@@ -143,7 +146,7 @@ def plot_trading_simulation_results(spy_ticker, golden_death_cross, portfolio_va
         xaxis_title="Date",
         yaxis_title="Portfolio Value ($)",
         legend_title="Portfolio",
-        width=1000, height=600,
+        height=400,
         xaxis=dict(type='date')  # Ensure x-axis is treated as dates
     )
 
