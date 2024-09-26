@@ -86,7 +86,7 @@ def plot_3d_yield_curve(df):
             ),
             zaxis_title='Yield'
         ),
-        width=CONTAINER_WIDTH, height=round(CONTAINER_WIDTH/1.8)
+        width=CONTAINER_WIDTH, height=round(CONTAINER_WIDTH/1.25)
     )
 
     st.plotly_chart(fig)
@@ -110,7 +110,7 @@ def plot_normal_yield_curve(df):
         xaxis_title='Maturity',
         yaxis_title='Yield',
         width=CONTAINER_WIDTH,
-        height=round(CONTAINER_WIDTH/3),
+        height=round(CONTAINER_WIDTH/1.25),
         showlegend=False,
         xaxis_fixedrange=True,
         yaxis_fixedrange=True
@@ -135,7 +135,7 @@ def plot_inverted_yield_curve(df):
         title=f'Inverted Yield Curve on {INVERTED_YIELD_DATE}',
         xaxis_title='Maturity',
         yaxis_title='Yield',
-        width=CONTAINER_WIDTH, height=round(CONTAINER_WIDTH/3),
+        width=CONTAINER_WIDTH, height=round(CONTAINER_WIDTH/1.25),
         showlegend=False,
         colorway=["#FFC0CB", "#FF2511",],
         xaxis_fixedrange=True,
@@ -159,7 +159,7 @@ def plot_yield_curve_by_maturity(df):
         colorway=["#FFFFED", "#FFD000", "#FFA500", "#FF2600"],
         xaxis_fixedrange=True,
         yaxis_fixedrange=True,
-        width=CONTAINER_WIDTH, height=round(CONTAINER_WIDTH/3.5)
+        width=CONTAINER_WIDTH, height=round(CONTAINER_WIDTH/1.2)
         )
     st.plotly_chart(fig)
 
@@ -182,7 +182,7 @@ def plot_yield_and_spy(df):
         xaxis_fixedrange=True,
         yaxis1_fixedrange=True,
         yaxis2_fixedrange=True,
-        width=CONTAINER_WIDTH, height=round(CONTAINER_WIDTH/3.5)
+        width=CONTAINER_WIDTH, height=round(CONTAINER_WIDTH/1.2)
     )
 
     # add vrect of financial crisis
@@ -212,7 +212,7 @@ def main():
         page_icon="📈",
     )
     global CONTAINER_WIDTH
-    CONTAINER_WIDTH = streamlit_js_eval(js_expressions='screen.width', key = 'SCR')
+    CONTAINER_WIDTH = streamlit_js_eval(js_expressions='window.innerWidth', key = 'SCR')
     df = read_df()
 
     st.title("The Yield Curve")

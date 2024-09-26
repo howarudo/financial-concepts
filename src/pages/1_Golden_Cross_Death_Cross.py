@@ -122,7 +122,7 @@ def plot_mva_results(spy_ticker, golden_death_cross, portfolio_values):
         legend_title="Legend",
         xaxis_fixedrange=True,
         yaxis_fixedrange=True,
-        width=CONTAINER_WIDTH, height=round(CONTAINER_WIDTH/2.8)
+        width=CONTAINER_WIDTH, height=round(CONTAINER_WIDTH/1.25)
         )
 
     st.plotly_chart(fig)
@@ -151,7 +151,7 @@ def plot_trading_simulation_results(spy_ticker, golden_death_cross, portfolio_va
         xaxis_title="Date",
         yaxis_title="Portfolio Value ($)",
         legend_title="Portfolio",
-        width=CONTAINER_WIDTH, height=round(CONTAINER_WIDTH/2.8),
+        width=CONTAINER_WIDTH, height=round(CONTAINER_WIDTH/1.25),
         xaxis=dict(type='date')  # Ensure x-axis is treated as dates
     )
 
@@ -171,7 +171,7 @@ def main():
     page_icon="📈",
     )
     global CONTAINER_WIDTH
-    CONTAINER_WIDTH = streamlit_js_eval(js_expressions='screen.width', key = 'SCR1')
+    CONTAINER_WIDTH = streamlit_js_eval(js_expressions='window.innerWidth', key = 'SCR1')
 
     st.title("Golden Cross & Death Cross")
 
