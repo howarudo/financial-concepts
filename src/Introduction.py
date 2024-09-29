@@ -15,7 +15,7 @@ st.markdown("""
             [**By Howard T.**](https://howarudo.github.io/)
             """)
 
-st.markdown("""## Macro Indicators""")
+st.markdown("""## Market Conpepts""")
 st.page_link("pages/2_The_Yield_Curve.py", label="The Yield Curve", icon="📈")
 
 st.markdown("""## Technical Indicators""")
