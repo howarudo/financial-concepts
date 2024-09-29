@@ -217,6 +217,8 @@ def main():
 
     st.title("The Yield Curve")
 
+    st.markdown("*8 min read*")
+
     overview = open("src/pages/texts/the_yield_curve/overview.md", "r").read()
     st.markdown(overview)
 
