@@ -168,6 +168,8 @@ def main():
 
     st.title("Golden Cross & Death Cross")
 
+    st.markdown("*4 min read*")
+
     # Fetch data
     ticker_df = fetch_ticker_data(TICKER_SYMBOL, START_DATE, END_DATE)
 
