@@ -16,8 +16,8 @@ st.markdown("""
             """)
 
 st.markdown("""### Quantitative Analysis""")
-st.page_link("pages/1_2024_Q1_Earnings_Analysis.py", label="**2024 Q1 Earnings Event Analysis: NVIDIA Shock & Tesla's Promises** (*20 min read*)", icon="📈"    )
-st.page_link("pages/2_Event_Study_Analysis.py", label="**Event Study Analysis: An Introduction** (*5 min read*)", icon="📈")
+st.page_link("pages/1_2024_Q1_Earnings_Analysis.py", label="**2024 Q1 Earnings Analysis** (*20 min read*)", icon="📈"    )
+st.page_link("pages/2_Event_Study_Analysis.py", label="**Event Study Analysis** (*5 min read*)", icon="📈")
 
 st.markdown("### Market Concepts")
 st.page_link("pages/3_The_Yield_Curve.py", label="**The Yield Curve** (*8 min read*)", icon="📈")
