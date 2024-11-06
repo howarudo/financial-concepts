@@ -246,7 +246,7 @@ def main():
         page_icon="📈",
     )
     st.title("2024 Q1 Earnings Event Study Analysis")
-    st.markdown("### NVIDIA Shock & Tesla's Promises")
+    st.markdown("### NVIDIA Success & Tesla's Promises")
     st.markdown("*20 min read*")
 
     st.markdown("""
@@ -285,12 +285,12 @@ def main():
 
     st.markdown("""
     #### Capital Asset Pricing Model (CAPM)
-    The CAPM model assumes that the returns are affected by the **market premium**, and the **risk-free rate**.
+    The CAPM model assumes that the returns are affected by the **risk of security**, and the **risk-free rate**.
     $$
     R_{t} - R_{f} = \\beta(R_{m} - R_{f}) + \\epsilon_{t} \\newline
     E[\epsilon_{t}] = 0, Var[\epsilon_{t}] = \\sigma^{2}
     $$
-    $R_{t}$: Return at time t, $R_{f}$: Risk-free rate, $R_{m}$: Market return, $\\beta$: Beta, the sensitivity of stock to the market.
+    $R_{t}$: Return at time t, $R_{f}$: Risk-free rate, $R_{m}$: Market return, $\\beta$: Beta, the sensitivity of stock to the market (systematic risk).
     In this implementation we assume that $R_{f} = 0$ for simplicity.
     """)
 
@@ -356,13 +356,21 @@ def main():
     st.markdown("""
     On the other hand, Apple, Microsoft, and Visa had a relatively small impact on their stock prices during their earning calls.
     """)
+
     st.plotly_chart(plot_data["AAPL"], use_container_width=True)
 
     st.markdown("""
     ## Discussion
-    NVIDIA reported spectacular Q1 earnings, beating the market expectations and had promising guidance for the future. This lead to a surge in their stock prices.
+    NVIDIA reported spectacular Q1 earnings, beating the market expectations and had promising guidance for the future. This lead to a surge in their stock prices. A clear sign that the market is optimistic about the future of the semiconductor industry.
     On the other hand, although Tesla reported a decrease in earnings from last year's Q1, Elon Musk promised to deliver a more affordable design, something that the market has been waiting for.
     This also lead to a surge in their stock prices.
+    """)
+
+    st.image("src/pages/texts/2024_q1_earnings/tesla_news.png", use_column_width=True)
+
+    st.markdown("""
+    This shows that although the market also values the current earnings, it also values the future promises of the company.
+    The fact that Tesla's stock prices were more **statistically significant** than NVIDIA's shows that the market is more optimistic about a promising future than a spectacular present.
     """)
 
     st.markdown("""
